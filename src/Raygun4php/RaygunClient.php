@@ -396,10 +396,11 @@ namespace Raygun4php {
         if ($this->proxy) {
           $curlOpts[] = "--proxy '" . $this->proxy . "'";
         }
-        $cmd = "curl " . implode(' ', $curlOpts) . " 'https://api.raygun.io:443/entries' > /dev/null 2>&1 &";
+        $cmd = "curl " . implode(' ', $curlOpts) . " 'http://localhost:3789/report'";
         $output = array();
         $exit = 0;
         exec($cmd, $output, $exit);
+        dump($output);
         return $exit;
       }
       else
