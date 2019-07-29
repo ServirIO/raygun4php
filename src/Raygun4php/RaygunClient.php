@@ -43,7 +43,7 @@ namespace Raygun4php {
      */
     protected $filterParams = array();
 
-    private $host = 'api.raygun.io';
+    private $host = 'localhost';
     private $path = '/entries';
     private $transport = 'ssl';
     private $port = 443;
@@ -396,11 +396,10 @@ namespace Raygun4php {
         if ($this->proxy) {
           $curlOpts[] = "--proxy '" . $this->proxy . "'";
         }
-        $cmd = "curl " . implode(' ', $curlOpts) . " 'http://localhost:3789/report'";
+        $cmd = "curl " . implode(' ', $curlOpts) . " 'http://" . $this->host . ":3789/entries'";
         $output = array();
         $exit = 0;
         exec($cmd, $output, $exit);
-        dump($output);
         return $exit;
       }
       else
@@ -563,6 +562,14 @@ namespace Raygun4php {
      */
     function setProxy($proxy) {
       $this->proxy = $proxy;
+      return $this;
+    }
+
+    /**
+     * Set host domain
+     */
+    function setHost($host) {
+      $this->host = $host;
       return $this;
     }
 
