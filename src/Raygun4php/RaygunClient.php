@@ -46,7 +46,7 @@ namespace Raygun4php {
     private $host = 'localhost';
     private $path = '/entries';
     private $transport = 'ssl';
-    private $port = 443;
+    private $port = 3789;
 
     /**
      * Creates a new RaygunClient instance.
@@ -396,7 +396,7 @@ namespace Raygun4php {
         if ($this->proxy) {
           $curlOpts[] = "--proxy '" . $this->proxy . "'";
         }
-        $cmd = "curl " . implode(' ', $curlOpts) . " 'http://" . $this->host . ":3789/entries'";
+        $cmd = "curl " . implode(' ', $curlOpts) . " 'http://" . $this->host . ":". strval($this->port)  . "/entries'";
         $output = array();
         $exit = 0;
         exec($cmd, $output, $exit);
@@ -570,6 +570,14 @@ namespace Raygun4php {
      */
     function setHost($host) {
       $this->host = $host;
+      return $this;
+    }
+
+    /**
+     * Set port
+     */
+    function setPort($port) {
+      $this->port = $port;
       return $this;
     }
 
